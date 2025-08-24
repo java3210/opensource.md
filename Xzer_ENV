@@ -197,8 +197,8 @@ end
 
 Cache.tab = function(window: table ,title: string, icon: number)
 	return window:DrawTab({
-		Name = "title",
-		Icon = "rbxassetid//" .. icon,
+		Name = title,
+		Icon = icon,
 		EnableScrolling = true
 	})
 end
