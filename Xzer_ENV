@@ -1,0 +1,287 @@
+local _ENV, _FNV = getgenv(), getfenv()
+
+repeat 
+	task.wait()
+until game:IsLoaded() and game:GetService('Players') and game:GetService('Players').LocalPlayer and workspace
+
+local Configs, 
+Connections, Nets,
+Indexing ={
+},{
+},{
+},{
+}
+
+local Utility: any? = (function()
+	local _Index = {}
+
+	function _Index:GetService(Injection: Service)
+		local RE = game:GetService(Injection) do
+			if cloneref then
+				return cloneref(RE)
+			end
+			return RE
+		end
+	end
+
+	function _Index:RE(Function: string)
+		local FE = (getgenv()[Function] and clonefunction(getgenv()[Function])) or function(...) 
+			return (...) end do
+			return FE
+		end
+	end
+
+	function _Index:Setup(Events: Controller, Touched: Mouse)
+		self['9e9'] = function()
+			Touched:CaptureController()
+			Touched:ClickButton2(Vector2.new())
+		end
+		return (table.insert(Connections or {}, Events:Connect(self['9e9'])))
+	end
+
+	function _Index:Dictionary(keys: table, value: any, simple: boolean)
+		local Dictionary = {}
+		for _, k in keys do
+			Dictionary[k] = value
+		end
+		return (not simple and table.unpack(Dictionary)) or Dictionary
+	end
+
+	function _Index:SetCheck()
+		for _,v in pairs(Indexing) do
+			if Configs[v] == true then
+				return true 
+			end 
+		end 
+		return false 
+	end
+
+	return _Index
+end)()
+
+local Players: Players = Utility:GetService("Players")
+local Lighting: Lighting = Utility:GetService('Lighting')
+local TeleportService: TeleportService = Utility:GetService('TeleportService')
+local VirtualUser: VirtualUser = Utility:GetService('VirtualUser')
+local RunService: RunService = Utility:GetService('RunService')
+local HttpService: HttpService = Utility:GetService('HttpService')
+local UserInputService: UserInputService = Utility:GetService('UserInputService')
+
+local LocalPlayer: LocalPlayer = Players.LocalPlayer
+
+local Cache = {
+	['file'] = `dumper.gg/configs/{LocalPlayer.UserId}/{game.PlaceId}.json`,
+	['isfolder'] = Utility:RE('isfolder'),
+	['makefolder'] = Utility:RE('makefolder'),
+	['writefile'] = Utility:RE('writefile'),
+	['readfile'] = Utility:RE('readfile'),
+	['isfile'] = Utility:RE('isfile')
+}
+
+Connections['Once'] = function(condition: any?, interval: number, fn: (() -> ())?, custom: (() -> boolean)?)
+	while condition do
+		local Tick = tick()
+		if fn then fn() end
+		if custom and custom() then break end
+		repeat
+			RunService.Heartbeat:Wait()
+		until tick() - Tick >= (interval or 0.1)
+	end
+end
+
+Connections['9e9'] = function(fn: () -> ())
+	return task.spawn(function()
+		while task.wait(0.1) do
+			fn()
+		end
+	end)
+end
+
+Cache.Reversal = function(cursor: string?)
+	local url = `https://games.roblox.com/v1/games/{game.PlaceId}/servers/Public?sortOrder=Asc&limit=100`
+	if cursor then
+		url ..= `&cursor={cursor}`
+	end
+	return HttpService:JSONDecode(game:HttpGet(url))
+end
+
+Cache.HOP = function()
+	return task.spawn(function()
+		local Server, Next
+		repeat
+			local Servers = Cache.Reversal(Next)
+			Server = Servers and Servers.data and Servers.data[1]
+			Next = Servers and Servers.nextPageCursor
+		until Server
+		if not Server or not Server.id then return end
+		return TeleportService:TeleportToPlaceInstance(game.PlaceId, Server.id, LocalPlayer)
+	end)
+end
+
+Cache.Rejoin = function()
+	if #Players:GetPlayers() <= 1 then
+		LocalPlayer:Kick("\nRejoining")
+		wait()
+		return TeleportService:Teleport(game.PlaceId, LocalPlayer)
+	end
+	return TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, LocalPlayer)
+end
+
+Cache.html = function(text: string, color: Color3)
+	if type(text) == "string" and typeof(color) == "Color3" then
+		local r, g, b = math.floor(color.R * 255), math.floor(color.G * 255), math.floor(color.B * 255)
+		return string.format('<font color="rgb(%d, %d, %d)">%s</font>', r, g, b, text)
+	end
+	return text
+end
+
+Cache.def = function(v: string, a: any?)
+	if type(v) == "table" then
+		for i, k in pairs(v) do
+			if Configs[i] == nil then
+				Configs[i] = k
+			end
+		end
+		return
+	end
+	if Configs[v] == nil then
+		Configs[v] = a
+	end
+end
+
+Cache.save = function(key: string?, value: any?)
+	local base = `dumper.gg/configs/{LocalPlayer.UserId}`
+	local path = `{base}/{game.PlaceId}.json`
+
+	if key ~= nil then
+		Configs[key] = value
+	end
+
+	if not Cache.isfolder("dumper.gg") then
+		Cache.makefolder("dumper.gg")
+	end
+
+	if not Cache.isfolder("dumper.gg/configs") then
+		Cache.makefolder("dumper.gg/configs")
+	end
+
+	if not Cache.isfolder(base) then
+		Cache.makefolder(base)
+	end
+
+	Cache.writefile(path, HttpService:JSONEncode(Configs))
+end
+
+Cache.load = function()
+	local base = `dumper.gg/configs/{LocalPlayer.UserId}`
+	local path = `{base}/{game.PlaceId}.json`
+
+	if not Cache.isfolder("dumper.gg") then
+		Cache.makefolder("dumper.gg")
+	end
+
+	if not Cache.isfolder("dumper.gg/configs") then
+		Cache.makefolder("dumper.gg/configs")
+	end
+
+	if not Cache.isfolder(base) then
+		Cache.makefolder(base)
+	end
+
+	if not Cache.isfile(path) then
+		Cache.save()
+	end
+
+	return HttpService:JSONDecode(Cache.readfile(path))
+end
+
+Cache.tab = function(window: table ,title: string, icon: number)
+	return window:DrawTab({
+		Name = "title",
+		Icon = "rbxassetid//" .. icon,
+		EnableScrolling = true
+	})
+end
+
+local function GetSide(b)
+	if b == 'r' then
+		return "right"
+	end
+	
+	return "left"
+end
+
+Cache.sec = function(tab: table ,title: string, desc: string)
+	return tab:DrawSection({
+		Name = title,
+		Position = GetSide(desc)
+	})
+end
+
+Cache.button = function(sec: any, Title: string, Callback: any)
+	return sec:AddButton({
+		Name = Title,
+		Callback = Callback,
+	})
+end
+
+Cache.list = function(sec: table, title: string, list: table, m: boolean, setting: string)
+	return sec:AddDropdown({
+		Name = title,
+		Default = Configs[setting],
+		Multi = true,
+		Values = list,
+		Callback = function(v)
+			Configs[setting] = v
+			Cache.save(setting, v)
+		end
+	})
+end
+
+Cache.toggle = function(meta: table)
+	local Section = meta.sec
+	local Title = meta.title or "Toggle"
+	local Index = meta.index or false
+	local Setting = meta.setting or ""
+	local Callback = meta.call
+	local C
+	if Index and Setting ~= "" then
+		if not table.find(Indexing, Setting) then
+			table.insert(Indexing, Setting)
+		end
+	end
+	
+	return Section:AddToggle({
+		Name = Title,
+		Default = Configs[Setting],
+		Callback = function(value)
+			Configs[Setting] = value
+			Cache.save(Setting, value)
+			if value then
+				C = task.spawn(function()
+					if Nets[Setting] then
+						Nets[Setting](Configs[Setting])
+					end
+				end)
+			else
+				if C then
+					task.cancel(C)
+				end
+			end
+			if typeof(Callback) == "function" then
+				Callback(value)
+			end
+		end
+	})
+end
+
+Utility:Setup(LocalPlayer.Idled, VirtualUser)
+
+return table.unpack({
+	Utility,
+	Configs,
+	Connections,
+	Nets,
+	Cache,
+	Indexing
+})
