@@ -1414,7 +1414,7 @@ function Env.new(meta)
 		IconTab.LayoutOrder = -1
 		IconTab.Size = UDim2.new(0, 25, 0, 25)
 		IconTab.Image = GetIcon(Icon)
-		IconTab.ImageColor3 = Color3.new(0, 1, 0.498039)
+		IconTab.ImageColor3 = Color3.new(0.298039, 1, 0.729412)
 
 		TextTab.Name = "TextTab"
 		TextTab.Parent = insideTab
@@ -1654,7 +1654,7 @@ function Env.new(meta)
 
 			LineColor.Name = "LineColor"
 			LineColor.Parent = Section
-			LineColor.BackgroundColor3 = Color3.new(0, 1, 0.498039)
+			LineColor.BackgroundColor3 = Color3.new(0.298039, 1, 0.729412)
 			LineColor.BorderColor3 = Color3.new(0, 0, 0)
 			LineColor.BorderSizePixel = 0
 			LineColor.LayoutOrder = -3
@@ -1678,7 +1678,7 @@ function Env.new(meta)
 
 				Button.Name = "Button"
 				Button.Parent = Section
-				Button.BackgroundColor3 = Color3.new(0, 1, 0.498039)
+				Button.BackgroundColor3 = Color3.new(0.298039, 1, 0.729412)
 				Button.BorderColor3 = Color3.new(0, 0, 0)
 				Button.BorderSizePixel = 0
 				Button.Size = UDim2.new(0.97, 0, 0, 30)
@@ -1813,7 +1813,7 @@ function Env.new(meta)
 				TRUEE.Position = UDim2.new(0.949999988, 0, 0.5, 0)
 				TRUEE.Size = UDim2.new(0, 20, 0, 20)
 				TRUEE.Image = "rbxassetid://108028847031522"
-				TRUEE.ImageColor3 = Color3.new(0, 1, 0.498039)
+				TRUEE.ImageColor3 = Color3.new(0.298039, 1, 0.729412)
 
 				clickbutton.MouseButton1Click:Connect(function()
 					for _, v in pairs(Background:GetChildren()) do
@@ -1905,7 +1905,7 @@ function Env.new(meta)
 				Color.Name = "Color"
 				Color.Parent = noColor
 				Color.AnchorPoint = Vector2.new(0.5, 0.5)
-				Color.BackgroundColor3 = Color3.new(0, 1, 0.498039)
+				Color.BackgroundColor3 = Color3.new(0.298039, 1, 0.729412)
 				Color.BorderColor3 = Color3.new(0, 0, 0)
 				Color.BorderSizePixel = 0
 				Color.Position = UDim2.new(0.5, 0, 0.5, 0)
@@ -2108,7 +2108,7 @@ function Env.new(meta)
 				Color.Name = "Color"
 				Color.Parent = noColor
 				Color.AnchorPoint = Vector2.new(0.5, 0.5)
-				Color.BackgroundColor3 = Color3.new(0, 1, 0.498039)
+				Color.BackgroundColor3 = Color3.new(0.298039, 1, 0.729412)
 				Color.BorderColor3 = Color3.new(0, 0, 0)
 				Color.BorderSizePixel = 0
 				Color.Position = UDim2.new(0.5, 0, 0.5, 0)
@@ -2318,7 +2318,7 @@ function Env.new(meta)
 					end
 				end
 				Update()
-				DescTOgle.TextColor3 = Color3.new(0, 1, 0.498039)
+				DescTOgle.TextColor3 = Color3.new(0.298039, 1, 0.729412)
 				DescTOgle.TextSize = 10
 				DescTOgle.TextXAlignment = Enum.TextXAlignment.Left
 
@@ -2348,7 +2348,7 @@ function Env.new(meta)
 				TRUEE.Position = UDim2.new(0.949999988, 0, 0.5, 0)
 				TRUEE.Size = UDim2.new(0, 20, 0, 20)
 				TRUEE.Image = "rbxassetid://129573215183311"
-				TRUEE.ImageColor3 = Color3.new(0, 1, 0.498039)
+				TRUEE.ImageColor3 = Color3.new(0.298039, 1, 0.729412)
 
 				local Dropdown = Instance.new("Frame")
 				local DropShadow = Instance.new("ImageLabel")
@@ -2981,7 +2981,7 @@ function Env.new(meta)
 				color.Name = "color"
 				color.Parent = Nocolor
 				color.AnchorPoint = Vector2.new(0, 0.5)
-				color.BackgroundColor3 = Color3.new(0, 1, 0.498039)
+				color.BackgroundColor3 = Color3.new(0.298039, 1, 0.729412)
 				color.BorderColor3 = Color3.new(0, 0, 0)
 				color.BorderSizePixel = 0
 				color.Position = UDim2.new(0, 0, 0.5, 0)
