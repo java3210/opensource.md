@@ -614,12 +614,33 @@ return function()
 				[3] = "TikiQuest3",
 				[4] = CFrame.new(-16666.5703125, 105.2913818359375, 1576.6925048828125)
 			}
-		elseif lv >= 2575 and lv <= 2649 then
+		elseif lv >= 2575 and lv <= 2599 then
 			return {
-				[1] = "Ocean Prophet",
+				[1] = "Reef Bandit",
+				[2] = 1,
+				[3] = "SubmergedQuest1",
+				[4] = CFrame.new(10780, -2087, 9262)
+			}
+		elseif lv >= 2600 and lv >= 2649 then
+			return {
+				[1] = "Coral Pirate",
+				[2] = 2,
+				[3] = "SubmergedQuest1",
+				[4] = CFrame.new(10780, -2087, 9262)
+			}
+		elseif lv >= 2650 and lv >= 2674 then
+			return {
+				[1] = "Sea Chanter",
 				[2] = 1,
 				[3] = "SubmergedQuest2",
-				[4] = CFrame.new(10882, -2086, 10035)
+				[4] = CFrame.new(10879, -2086, 10034)
+			}
+		elseif lv >= 2675 then
+			return {
+				[1] = "Ocean Prophet",
+				[2] = 2,
+				[3] = "SubmergedQuest2",
+				[4] = CFrame.new(10879, -2086, 10034)
 			}
 		end
 	end
