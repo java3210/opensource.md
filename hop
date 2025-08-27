@@ -63,6 +63,7 @@ local module = {}
 function module:Teleport(placeId)
 	while task.wait(0.01) do
 		pcall(function()
+			if not getgenv().Allowed then return end
 			TPReturner(placeId)
 			if foundAnything ~= "" then
 				TPReturner(placeId)
