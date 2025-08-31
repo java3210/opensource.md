@@ -61,7 +61,7 @@ local function TPReturner(placeId)
 end
 local module = {}
 function module:Teleport(placeId)
-	while task.wait(0.01) do
+	while wait() do
 		pcall(function()
 			if not getgenv().Allowed then return end
 			TPReturner(placeId)
