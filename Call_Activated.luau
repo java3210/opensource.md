@@ -1,5 +1,37 @@
+local _ENV = getgenv()
+
+local Process = game:GetService("ReplicatedStorage"):WaitForChild("ByteNetReliable")
+local RunService = game:GetService("RunService")
+local VirtualUser = game:GetService('VirtualUser')
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+
+if _ENV.Connect then
+	_ENV.Connect:Disconnect()
+	_ENV.Connect = nil
+end
+
+_ENV.Connect = RunService.RenderStepped:Connect(function()
+	local Equipped = Character and Character:FindFirstChildOfClass("Tool")
+	if not Equipped then return end
+
+	if Equipped:GetAttribute("lastActivated8") then
+		Process:FireServer(buffer.fromstring("\b\8\8\b\2\2\b\4\4\b\4\4\b\b\1"), {
+			Equipped:GetAttribute("lastActivated8"),
+			Equipped:GetAttribute("lastActivated8"),
+			Equipped:GetAttribute("lastActivated8"),
+			Equipped:GetAttribute("lastActivated8"),
+			Equipped:GetAttribute("lastActivated8"),
+		})
+	end
+	
+	--\b\8\8
+end)
+
+
 local Activated = {} do
-	function Activated.new(Logo, Enum, Call)
+	function Activated.new(Logo, Enums, Call)
 		local Toggle = Instance.new('ScreenGui')
 		local CloseUI = Instance.new("TextButton")
 		local UICorner_1z = Instance.new("UICorner")
@@ -92,7 +124,7 @@ local Activated = {} do
 		end)
 
 		game.UserInputService.InputBegan:Connect(function(input, gameProcessed)
-			if not gameProcessed and input.KeyCode == Enum then
+			if not gameProcessed and input.KeyCode == Enums then
 				On = not On
 				Call(On)
 			end
