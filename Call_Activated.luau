@@ -32,7 +32,7 @@ local Activated = {} do
 		Icon_1.BorderSizePixel = 0
 		Icon_1.Size = UDim2.new(0, 50,0, 50)
 		Icon_1.BackgroundTransparency = 1
-		Icon_1.Position = UDim2.new(0.5, 0, 0.55, 0)
+		Icon_1.Position = UDim2.new(0.5, 0, 0.5, 0)
 		Icon_1.AnchorPoint = Vector2.new(0.5, 0.5)
 
 		ImageLabel.Parent = Icon_1
