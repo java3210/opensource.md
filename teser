@@ -1,0 +1,3 @@
+local LUAU = ...
+if not LUAU then return warn('Invalid Data') end
+print('Valid Data')
