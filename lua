@@ -1,4 +1,3 @@
-
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
@@ -288,8 +287,8 @@ Visualized.new = function(new)
 	Background_1.Name = "Background"
 	Background_1.Parent = Visualize
 	Background_1.AnchorPoint = Vector2.new(0.5, 0.5)
-	Background_1.BackgroundColor3 = Theme['Background']
-	Background_1.BackgroundTransparency = Theme.Tabs.Transparency
+	Background_1.BackgroundColor3 = Color3.fromRGB(31, 31, 33)
+	Background_1.BackgroundTransparency = 0
 	Background_1.BorderColor3 = Color3.fromRGB(0,0,0)
 	Background_1.BorderSizePixel = 0
 	Background_1.Position = UDim2.new(0.5, 0,0.5, 0)
