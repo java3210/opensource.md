@@ -174,7 +174,7 @@ local Theme = {
 	},
 	['Tabs'] = {
 		['Transparency'] = 0.3,
-		['Highlight'] = new(0, 255, 123)
+		['Highlight'] = new(233, 1, 77)
 	},
 	['Page'] = {
 		['Background'] = new(28, 28, 30),
@@ -184,7 +184,7 @@ local Theme = {
 			['Line'] = new(61, 61, 61),
 			['Toggle'] = {
 				['OFF'] = new(67,67,69),
-				['ON'] = new(0, 255, 123)
+				['ON'] = new(233, 1, 77)
 			}
 		}
 	}
@@ -1309,7 +1309,7 @@ Visualized.new = function(new)
 				UICorner_1.CornerRadius = UDim.new(0,4)
 
 				UIGradient_1.Parent = Clickable
-				UIGradient_1.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 159, 77)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 255, 123))}
+				UIGradient_1.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(116, 0, 39)), ColorSequenceKeypoint.new(1, Color3.fromRGB(233, 1, 77))}
 				UIGradient_1.Rotation = 90
 
 				Title_1.Name = "Title"
@@ -1619,6 +1619,7 @@ Visualized.new = function(new)
 				local Call = new.Call or function() return end
 				
 				local Desc_1 = Raw.Text.Desc
+				Desc_1.TextTruncate = Enum.TextTruncate.AtEnd
 
 				local function ChangeText()
 					if typeof(Value) == 'table' then
