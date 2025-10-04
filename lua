@@ -68,7 +68,7 @@ function Library:Button(p)
 	Click.Text = ""
 	Click.TextColor3 = Color3.fromRGB(0, 0, 0)
 	Click.TextSize = 14.000
-	Click.ZIndex = p.ZIndex + 1
+	Click.ZIndex = p.ZIndex + 3
 
 	return Click
 end
@@ -489,83 +489,73 @@ function Library.new(params)
 	Size_1.Size = UDim2.new(0, 40,0, 40)
 	Size_1.ZIndex = -99
 	
-	local CloseUI = Instance.new("TextButton")
-	local UICorner_1z = Instance.new("UICorner")
-	local Icon_1 = Instance.new("Frame")
-	local ImageLabel = Instance.new("ImageLabel")
+	local Toggle = Instance.new("ImageLabel") do
+		local Input_1 = Instance.new("TextButton")
+		Toggle.Name = "Toggle"
+		Toggle.Parent = Xzer
+		Toggle.AnchorPoint = Vector2.new(0.5, 0)
+		Toggle.BackgroundColor3 = Color3.fromRGB(255,255,255)
+		Toggle.BackgroundTransparency = 1
+		Toggle.BorderColor3 = Color3.fromRGB(0,0,0)
+		Toggle.BorderSizePixel = 0
+		Toggle.Position = UDim2.new(0.5, 0,0, 10)
+		Toggle.Size = UDim2.new(0, 200,0, 7)
+		Toggle.Image = "rbxassetid://80999662900595"
+		Toggle.ImageTransparency = 0.699999988079071
+		Toggle.ScaleType = Enum.ScaleType.Slice
+		Toggle.SliceCenter = Rect.new(256, 256, 256, 256)
+		Toggle.SliceScale = 0.38671875
 
+		Input_1.Name = "Input"
+		Input_1.Parent = Toggle
+		Input_1.Active = true
+		Input_1.AnchorPoint = Vector2.new(0.5, 0.5)
+		Input_1.BackgroundColor3 = Color3.fromRGB(255,255,255)
+		Input_1.BackgroundTransparency = 1
+		Input_1.BorderColor3 = Color3.fromRGB(0,0,0)
+		Input_1.BorderSizePixel = 0
+		Input_1.Position = UDim2.new(0.5, 0,0.5, 0)
+		Input_1.Size = UDim2.new(1, 25,1, 25)
+		Input_1.Font = Enum.Font.SourceSans
+		Input_1.Text = ""
+		Input_1.TextSize = 14
+		Input_1.ZIndex = 99
 
-	CloseUI.Name = "CloseUI"
-	CloseUI.Parent = Xzer
-	CloseUI.AnchorPoint = Vector2.new(0, 1)
-	CloseUI.BackgroundColor3 = Color3.fromRGB(0,0,0)
-	CloseUI.BorderColor3 = Color3.fromRGB(0,0,0)
-	CloseUI.BorderSizePixel = 0
-	CloseUI.Position = UDim2.new(0.5, 0,0.1, 0)
-	CloseUI.Size = UDim2.new(0, 50,0, 50)
-	CloseUI.BackgroundTransparency = 0.35
-	CloseUI.Text = ""
-
-	self:SimpleDraggable(CloseUI)
-
-	UICorner_1z.Parent = CloseUI
-	UICorner_1z.CornerRadius = UDim.new(0,15)
-
-	Icon_1.Name = "Icon"
-	Icon_1.Parent = CloseUI
-	Icon_1.BackgroundColor3 = Color3.fromRGB(22,22,22)
-	Icon_1.BorderColor3 = Color3.fromRGB(0,0,0)
-	Icon_1.BorderSizePixel = 0
-	Icon_1.Size = UDim2.new(0, 50,0, 50)
-	Icon_1.BackgroundTransparency = 1
-	Icon_1.Position = UDim2.new(0.5, 0, 0.55, 0)
-	Icon_1.AnchorPoint = Vector2.new(0.5, 0.5)
-
-	ImageLabel.Parent = Icon_1
-	ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-	ImageLabel.BackgroundColor3 = Color3.fromRGB(255,255,255)
-	ImageLabel.BackgroundTransparency = 1
-	ImageLabel.BorderColor3 = Color3.fromRGB(0,0,0)
-	ImageLabel.BorderSizePixel = 0
-	ImageLabel.Position = UDim2.new(0.5, 0,0.5, 0)
-	ImageLabel.Size = UDim2.new(0, 45,0, 45)
-	ImageLabel.Image = Library:Asset(Logo)
-	ImageLabel.ImageTransparency = 0
-
-	local function closeopenui()
-		task.spawn(function()
+		local function closeopenui()
+			Main_1:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), "Out", "Sine", 0.1, true)
 			Library:Tween({
-				v = ImageLabel,
+				v = Toggle,
 				t = 0.2,
 				s = "Back",
 				d = "Out",
-				g = {Size = UDim2.new(0, 35, 0, 35)}
+				g = {ImageTransparency = 0.3}
 			}):Play()
-			task.wait(0.016) 
-			Library:Tween({
-				v = ImageLabel,
-				t = 0.2,
-				s = "Back",
-				d = "Out",
-				g = {Size = UDim2.new(0, 45, 0, 45)}
-			}):Play()
-		end)
-		Main_1.Visible = not Main_1.Visible
-	end
+			delay(0.1, function()
+				Library:Tween({
+					v = Toggle,
+					t = 0.2,
+					s = "Back",
+					d = "Out",
+					g = {ImageTransparency = 0.7}
+				}):Play()
+			end)
+			Main_1.Visible = not Main_1.Visible
+		end
 
-	local On = true
+		local On = true
 
-	CloseUI.MouseButton1Click:Connect(function()
-		closeopenui()
-		On = not On
-	end)
-
-	UserInputService.InputBegan:Connect(function(input, gameProcessed)
-		if not gameProcessed and input.KeyCode == Keybind then
+		Input_1.MouseButton1Click:Connect(function()
 			closeopenui()
 			On = not On
-		end
-	end)
+		end)
+
+		UserInputService.InputBegan:Connect(function(input, gameProcessed)
+			if not gameProcessed and input.KeyCode == Keybind then
+				closeopenui()
+				On = not On
+			end
+		end)
+	end
 
 	local SizeCorner = Instance.new("UICorner")
 	SizeCorner.Parent = Size_1
@@ -2338,6 +2328,98 @@ function Library.new(params)
 
 				return itemslist
 			end
+			
+			function Element:Enum(new)
+				local Title = new.Title or "Unknow"
+				local Desc = new.Desc
+				local Key = new.Key or Enum.KeyCode.Q
+				local Value = new.Value or false
+				local Callback = new.Call or function() end
+				
+				local Raw = Library:Row(Section, Title, Desc)
+				local Line = (not new.DisbleLine and self:Line()) or nil
+				
+				local Side = Instance.new("Frame")
+				local Changed_1 = Instance.new("Frame")
+				local UICorner_1 = Instance.new("UICorner")
+				local UIStroke_1 = Instance.new("UIStroke")
+				local Enum_1 = Instance.new("TextLabel")
+				local Click_1 = Library:Button(Changed_1)
+
+				Side.Name = "Side"
+				Side.Parent = Raw
+				Side.BackgroundColor3 = Color3.fromRGB(255,255,255)
+				Side.BackgroundTransparency = 1
+				Side.BorderColor3 = Color3.fromRGB(0,0,0)
+				Side.BorderSizePixel = 0
+				Side.Size = UDim2.new(1, 0,1, 0)
+
+				Changed_1.Name = "Changed"
+				Changed_1.Parent = Side
+				Changed_1.AnchorPoint = Vector2.new(1, 0.5)
+				Changed_1.BackgroundColor3 = Color3.fromRGB(50,50,50)
+				Changed_1.BorderColor3 = Color3.fromRGB(0,0,0)
+				Changed_1.BorderSizePixel = 0
+				Changed_1.Position = UDim2.new(1, 0,0.5, 0)
+				Changed_1.Size = UDim2.new(0, 25,0, 20)
+
+				UICorner_1.Parent = Changed_1
+				UICorner_1.CornerRadius = UDim.new(0,4)
+
+				UIStroke_1.Parent = Changed_1
+				UIStroke_1.Color = Color3.fromRGB(75,75,75)
+				UIStroke_1.Thickness = 1
+
+				Enum_1.Name = "Enum"
+				Enum_1.Parent = Changed_1
+				Enum_1.AnchorPoint = Vector2.new(0.5, 0.5)
+				Enum_1.BackgroundColor3 = Color3.fromRGB(255,255,255)
+				Enum_1.BackgroundTransparency = 1
+				Enum_1.BorderColor3 = Color3.fromRGB(0,0,0)
+				Enum_1.BorderSizePixel = 0
+				Enum_1.Position = UDim2.new(0.5, 0,0.5, 0)
+				Enum_1.Size = UDim2.new(0.800000012, 0,0.800000012, 0)
+				Enum_1.Font = Enum.Font.GothamSemibold
+				Enum_1.Text = 'N/A'
+				Enum_1.TextColor3 = Color3.fromRGB(255,255,255)
+				Enum_1.TextSize = 12
+				Enum_1.TextTransparency = 0.5
+				
+				local function adjustBoxBindSize()
+					Changed_1.Size = UDim2.new(0, Enum_1.TextBounds.X + 10, 0, 20)
+				end
+
+				adjustBoxBindSize()
+
+				local function changeKey()
+					Enum_1.Text = "..."
+					local inputConnection
+
+					inputConnection = UserInputService.InputBegan:Connect(function(input)
+						if input.UserInputType == Enum.UserInputType.Keyboard then
+							Key = input.KeyCode
+							Enum_1.Text = tostring(Key):gsub("Enum.KeyCode.", "")
+							adjustBoxBindSize()
+							inputConnection:Disconnect()
+							Callback(Key, Value)
+						end
+					end)
+				end
+
+				UserInputService.InputEnded:Connect(function(input, gameProcessed)
+					if input.KeyCode == Key then
+						Value = not Value
+						Callback(Key, Value)
+					end
+				end)
+
+				delay(0, function()
+					Callback(Key, Value)
+					changeKey()
+				end)
+
+				Click_1.MouseButton1Click:Connect(changeKey)
+			end
 
 			return Element
 		end
@@ -2418,6 +2500,10 @@ function Library.new(params)
 		end
 
 		return Section
+	end
+	
+	function Tab:SetEnum(a)
+		Keybind = Enum.KeyCode[a]
 	end
 
 	return Tab
