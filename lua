@@ -2503,7 +2503,7 @@ function Library.new(params)
 	end
 	
 	function Tab:SetEnum(a)
-		Keybind = Enum.KeyCode[a]
+		Keybind = a
 	end
 
 	return Tab
